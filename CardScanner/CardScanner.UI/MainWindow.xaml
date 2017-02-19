@@ -9,10 +9,10 @@
         Title="Card Scanner" Height="350" Width="525">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button Content="settings" />
+            <Button x:Name="settings" Content="settings" />
             <Button>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="4 0 0 0"
+                    <TextBlock x:Name="myAccount" Margin="4 0 0 0"
                    VerticalAlignment="Center"
                    Text="my account" />
                 </StackPanel>

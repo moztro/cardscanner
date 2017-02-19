@@ -34,8 +34,25 @@ namespace CardScanner.UI
             user.Username = "daniel@crea-ti.com.mx";
 
             Username.Content = user.FullName;
+
+            settings.Click += Settings_Click;
+            settings.ToolTip = "Settings for serial ports";
+                        
         }
-        
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            SerialPortConfig settings = new SerialPortConfig();
+
+            settings.Owner = this;
+            settings.ShowDialog();
+        }
+
+        private async void item2_Click(object sender, RoutedEventArgs e)
+        {
+            await this.ShowMessageAsync("Config", "Just other menu config ;)");
+        }
+
         private async void Help_Click(object sender, RoutedEventArgs e)
         {
             await this.ShowMessageAsync("HELP", "Just slide your card in the scanner. Let us take care of the rest ;)");
@@ -56,7 +73,7 @@ namespace CardScanner.UI
             {
                 await task.CloseAsync();
                 Code.Text = "1234 5678 910";
-            }
+            }            
         }
     }
 }
