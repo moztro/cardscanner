@@ -28,12 +28,8 @@ namespace CardScanner.UI
         {
             InitializeComponent();
 
-            var user = new ApplicationUser();
-            user.FirstName = "Daniel";
-            user.LastName = "Uribe";
-            user.Username = "daniel@crea-ti.com.mx";
-
-            Username.Content = user.FullName;
+            Lunches.ItemsSource = Lunch.Lunches;
+            Lunches.DisplayMemberPath = "Name";
 
             settings.Click += Settings_Click;
             settings.ToolTip = "Settings for serial ports";
@@ -73,7 +69,52 @@ namespace CardScanner.UI
             {
                 await task.CloseAsync();
                 Code.Text = "1234 5678 910";
+                this.SetUserData();
+                UserData.Visibility = Visibility.Visible;
             }            
+        }
+
+        private void SetUserData()
+        {
+
+            var user = new ApplicationUser();
+            user.FirstName = "Daniel";
+            user.LastName = "Uribe";
+            user.Username = "daniel@crea-ti.com.mx";
+
+            Username.Content = user.FullName;
+            Email.Content = user.Username;
+            BusinessArea.Content = "IS";
+        }
+
+        private void Code_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textbox = (TextBox)e.Source;
+
+            if (string.IsNullOrEmpty(textbox.Text))
+            {
+                UserData.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private async void Assign_Click(object sender, RoutedEventArgs e)
+        {
+            var task = await this.ShowProgressAsync(string.Empty, "Assigning your lunch, please wait...");
+
+            task.Maximum = 100;
+            for (int i = 0; i <= task.Maximum; i += 10)
+            {
+                task.SetProgress(i);
+                await Task.Delay(100);
+            }
+
+            if (task.IsOpen)
+            {
+                await task.CloseAsync();
+                Code.Text = string.Empty;
+                Code.Focus();
+                UserData.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

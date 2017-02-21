@@ -20,10 +20,20 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     <Grid>
-        <Label Content="Hi " HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
-        <Label Name="Username" Content="username" HorizontalAlignment="Left" Margin="40,50,0,0" VerticalAlignment="Top" />
-        <TextBox x:Name="Code" Controls:TextBoxHelper.Watermark="The code should appear here" Controls:TextBoxHelper.ClearTextButton="True" HorizontalAlignment="Left" Height="23" Margin="10,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497"/>
+        <Label Content="Welcome! Start sliding your card" FontSize="18" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Code" Controls:TextBoxHelper.Watermark="The code should appear here" Controls:TextBoxHelper.ClearTextButton="True" HorizontalAlignment="Left" Height="23" Margin="10,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" TextChanged="Code_TextChanged"/>
         <Button x:Name="Submit" Content="Read" HorizontalAlignment="Left" Margin="432,109,0,0" VerticalAlignment="Top" Width="75" Style="{StaticResource AccentedSquareButtonStyle}" Click="Submit_Click"/>
         <Button x:Name="Help" Content="?" HorizontalAlignment="Left" Margin="497,10,0,0" VerticalAlignment="Top" Style="{DynamicResource MetroCircleButtonStyle}" Click="Help_Click"/>
+        <Grid x:Name="UserData" HorizontalAlignment="Left" Height="147" Margin="10,162,0,0" VerticalAlignment="Top" Width="421" Visibility="Hidden">
+            <Label Name="Username" FontSize="18" Content="username" HorizontalAlignment="Left" Margin="165,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.39,-0.721" />
+            <Image x:Name="image" HorizontalAlignment="Left" Height="99" Margin="10,10,0,0" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.499,0.486" Source="Images/user-icon.png"/>
+            <Label Content="Email" HorizontalAlignment="Left" Margin="165,49,0,0" VerticalAlignment="Top"/>
+            <Label Content="Area" HorizontalAlignment="Left" Margin="165,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.079,-0.834"/>
+            <Label x:Name="Email" Content="" HorizontalAlignment="Left" Margin="215,49,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="BusinessArea" Content="" HorizontalAlignment="Left" Margin="215,80,0,0" VerticalAlignment="Top"/>            
+            <Controls:SplitButton x:Name="Lunches" VerticalContentAlignment="Center" Margin="165,111,136,0" DisplayMemberPath="Title" Width="120" SelectedIndex="0">
+            </Controls:SplitButton>
+            <Button x:Name="Assign" Content="Assign" HorizontalAlignment="Left" Margin="299,112,0,0" Style="{StaticResource AccentedSquareButtonStyle}" VerticalAlignment="Top" Width="75" Height="35" Click="Assign_Click"/>
+        </Grid>
     </Grid>
 </Controls:MetroWindow>
