@@ -23,20 +23,7 @@ namespace CardScanner.UI
     /// </summary>
     public partial class SerialPortConfig : MetroWindow
     {
-        internal SerialPort serialPort = new SerialPort();
-        private int _dataBits = 8;
-        private Handshake _handshake = Handshake.None;
-        private Parity _parity = Parity.None;        
-        private StopBits _stopBits = StopBits.One;
-
-        /// <summary> 
-        /// Holds data received until we get a terminator. 
-        /// </summary> 
-        private string tString = string.Empty;
-        /// <summary> 
-        /// End of transmition byte in this case EOT (ASCII 4). 
-        /// </summary> 
-        private byte terminator = 0x4;
+        
 
         public SerialPortConfig()
         {
@@ -80,41 +67,18 @@ namespace CardScanner.UI
         {
             try
             {
-                serialPort.BaudRate = ((BaudRate) this.BaudRates.SelectedItem).Value;
-                serialPort.DataBits = _dataBits;
-                serialPort.Handshake = _handshake;
-                serialPort.Parity = _parity;
-                serialPort.PortName = ((COMPort) this.Ports.SelectedItem).COM;
-                serialPort.StopBits = _stopBits;
-                serialPort.DataReceived += new SerialDataReceivedEventHandler(serialPort_DataReceived);
-                serialPort.Open();
+                var settings = Settings.Instance;
+                settings.BaudRate = ((BaudRate)BaudRates.SelectedItem).Value;
+                settings.DataBits = 8;
+                settings.Handshake = Handshake.None;
+                settings.Parity = Parity.None;
+                settings.PortName = ((COMPort)Ports.SelectedItem).COM;
+                settings.StopBits = StopBits.One;
+                //serialPort.DataReceived += new SerialDataReceivedEventHandler(serialPort_DataReceived);
+                //serialPort.Open();
             }
             catch { return false; }
             return true;
-        }
-
-        void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            //Initialize a buffer to hold the received data 
-            byte[] buffer = new byte[serialPort.ReadBufferSize];
-
-            //There is no accurate method for checking how many bytes are read 
-            //unless you check the return from the Read method 
-            int bytesRead = serialPort.Read(buffer, 0, buffer.Length);
-
-            //For the example assume the data we are received is ASCII data. 
-            tString += Encoding.ASCII.GetString(buffer, 0, bytesRead);
-            //Check if string contains the terminator  
-            if (tString.IndexOf((char)terminator) > -1)
-            {
-                //If tString does contain terminator we cannot assume that it is the last character received 
-                string workingString = tString.Substring(0, tString.IndexOf((char)terminator));
-                //Remove the data up to the terminator from tString 
-                tString = tString.Substring(tString.IndexOf((char)terminator));
-                //Do something with workingString 
-                Console.WriteLine(workingString);
-            }
-            else { Console.WriteLine(tString); }
         }
     }
 }
