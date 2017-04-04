@@ -48,6 +48,16 @@ namespace CardScanner.UI
             Ports.DisplayMemberPath = "COM";
             BaudRates.ItemsSource = Model.BaudRate.BaudRates;
             BaudRates.DisplayMemberPath = "Value";
+
+            HandShakes.ItemsSource = Enum.GetValues(typeof(EHandshake)).Cast<EHandshake>();
+            Parities.ItemsSource = Enum.GetValues(typeof(EParity)).Cast<EParity>();
+            StopBites.ItemsSource = Enum.GetValues(typeof(EStopBits)).Cast<EStopBits>();
+            HandShakes.DisplayMemberPath = "DisplayName";
+            Parities.DisplayMemberPath = "Name";
+            StopBites.DisplayMemberPath = "Description";
+
+            var settings = Settings.Instance;
+            DataBits.Text = settings.DataBits.ToString();
         }
 
         private async void button_Click(object sender, RoutedEventArgs e)
@@ -69,15 +79,20 @@ namespace CardScanner.UI
             {
                 var settings = Settings.Instance;
                 settings.BaudRate = ((BaudRate)BaudRates.SelectedItem).Value;
-                settings.DataBits = 8;
-                settings.Handshake = Handshake.None;
-                settings.Parity = Parity.None;
-                settings.PortName = ((COMPort)Ports.SelectedItem).COM;
-                settings.StopBits = StopBits.One;
+                settings.DataBits = int.Parse(DataBits.Text);
+                if(settings.DataBits < 5 || settings.DataBits > 8)
+                {
+                    settings.DataBits = 8;
+                }
+                settings.Handshake = HandShakes.SelectedItem != null ? (EHandshake)HandShakes.SelectedItem : EHandshake.None;
+                settings.Parity = Parities.SelectedItem != null ? (EParity)Parities.SelectedItem : EParity.None;
+                settings.PortName = Ports.SelectedItem != null ? ((COMPort)Ports.SelectedItem).COM : null;
+                settings.StopBits = StopBites.SelectedItem != null ? (EStopBits)StopBites.SelectedItem: EStopBits.One;
+                settings.UpdatePortSettings();
                 //serialPort.DataReceived += new SerialDataReceivedEventHandler(serialPort_DataReceived);
                 //serialPort.Open();
             }
-            catch { return false; }
+            catch(Exception ex) { return false; }
             return true;
         }
     }

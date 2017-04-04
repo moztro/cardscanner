@@ -99,7 +99,8 @@ namespace CardScanner.UI
 
         private void Settings_Closed(object sender, EventArgs e)
         {
-            Settings.Instance.UpdatePortSettings();
+            ((SerialPortConfig)sender).Open();
+            //Settings.Instance.UpdatePortSettings();
             Port = Settings.Instance.Port;
         }
         #endregion
@@ -125,6 +126,8 @@ namespace CardScanner.UI
                 task.SetProgress(i);
                 await Task.Delay(100);
             }
+
+            var port = Port;
 
             if (task.IsOpen)
             {
