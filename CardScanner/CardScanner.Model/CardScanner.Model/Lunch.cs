@@ -40,6 +40,8 @@ namespace CardScanner.Model
 
         public int Value { get; set; }
 
+        public static BaudRate Default { get { return new BaudRate { Id = 0, Value = 300 }; } }
+
         public static IEnumerable<BaudRate> BaudRates
         {
             get

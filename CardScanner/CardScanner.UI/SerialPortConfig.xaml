@@ -6,20 +6,20 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:CardScanner.UI"
         mc:Ignorable="d"
-        Title="SerialPortConfig" Height="214.357" Width="311.765">
+        Title="SerialPortConfig" Height="346.284" Width="311.765">
     <Grid Margin="0,0,0,14">
-        <Label x:Name="Label" Content="Ports" HorizontalAlignment="Left" Margin="16,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.205,1.241"/>
-        <Label x:Name="label" Content="Baud Rate" HorizontalAlignment="Left" Margin="16,69,0,0" VerticalAlignment="Top"/>
-        <Controls:SplitButton x:Name="BaudRates" VerticalContentAlignment="Stretch" Margin="95,69,23,225" DisplayMemberPath="Title" SelectedIndex="0"/>
-        <Button x:Name="button" Content="Start" HorizontalAlignment="Left" Margin="206,137,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Controls:SplitButton x:Name="Ports" VerticalContentAlignment="Stretch" Margin="95,38,23,246" DisplayMemberPath="Title" SelectedIndex="0"/>
-        <Label Visibility="Hidden"  Content="Data Bits" HorizontalAlignment="Left" Margin="16,100,0,0" VerticalAlignment="Top"/>
-        <TextBox Visibility="Hidden" x:Name="DataBits" HorizontalAlignment="Left" Height="23" Margin="95,100,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="186"/>
-        <Label Visibility="Hidden" Content="Handshake" HorizontalAlignment="Left" Margin="16,131,0,0" VerticalAlignment="Top"/>
-        <Controls:SplitButton Visibility="Hidden" x:Name="HandShakes" VerticalContentAlignment="Stretch" Margin="95,131,23,153" DisplayMemberPath="Title" SelectedIndex="0"/>
-        <Label Visibility="Hidden" Content="Parity" HorizontalAlignment="Left" Margin="16,162,0,0" VerticalAlignment="Top"/>
-        <Controls:SplitButton Visibility="Hidden" x:Name="Parities" VerticalContentAlignment="Stretch" Margin="95,162,23,122" DisplayMemberPath="Title" SelectedIndex="0"/>
-        <Label Visibility="Hidden" Content="Stop Bits" HorizontalAlignment="Left" Margin="16,193,0,0" VerticalAlignment="Top"/>
-        <Controls:SplitButton Visibility="Hidden" x:Name="StopBites" VerticalContentAlignment="Stretch" Margin="95,193,23,91" DisplayMemberPath="Title" SelectedIndex="0"/>
+        <Label x:Name="Label" Content="Ports" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.205,1.241"/>
+        <Label x:Name="label" Content="Baud Rate" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top"/>
+        <Controls:SplitButton x:Name="BaudRates" VerticalContentAlignment="Stretch" Margin="87,69,31,206" DisplayMemberPath="Title" SelectedIndex="0"/>
+        <Button x:Name="button" Content="Start" HorizontalAlignment="Left" Margin="198,251,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Controls:SplitButton x:Name="Ports" VerticalContentAlignment="Stretch" Margin="87,38,31,237" DisplayMemberPath="Title" SelectedIndex="0"/>
+        <Label Content="Data Bits" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="DataBits" HorizontalAlignment="Left" Height="23" Margin="87,101,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="186"/>
+        <Label Content="Handshake" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top"/>
+        <Controls:SplitButton x:Name="HandShakes" VerticalContentAlignment="Stretch" Margin="87,132,31,143" DisplayMemberPath="Title" SelectedIndex="0"/>
+        <Label Content="Parity" HorizontalAlignment="Left" Margin="10,162,0,0" VerticalAlignment="Top"/>
+        <Controls:SplitButton x:Name="Parities" VerticalContentAlignment="Stretch" Margin="87,163,31,112" DisplayMemberPath="Title" SelectedIndex="0"/>
+        <Label Content="Stop Bits" HorizontalAlignment="Left" Margin="10,193,0,0" VerticalAlignment="Top"/>
+        <Controls:SplitButton x:Name="StopBites" VerticalContentAlignment="Stretch" Margin="87,193,31,82" DisplayMemberPath="Title" SelectedIndex="0"/>
     </Grid>
 </Controls:MetroWindow>
