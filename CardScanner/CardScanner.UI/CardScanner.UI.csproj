@@ -78,6 +78,7 @@
     <Compile Include="SerialPortConfig.xaml.cs">
       <DependentUpon>SerialPortConfig.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

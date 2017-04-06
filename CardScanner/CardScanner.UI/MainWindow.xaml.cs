@@ -3,6 +3,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -26,14 +27,6 @@ namespace CardScanner.UI
     public partial class MainWindow : MetroWindow
     {
         private SerialPort Port;
-        /// <summary> 
-        /// Holds data received until we get a terminator. 
-        /// </summary> 
-        private string tString = string.Empty;
-        /// <summary> 
-        /// End of transmition byte in this case EOT (ASCII 4). 
-        /// </summary> 
-        private byte terminator = 0x4;
 
         public MainWindow()
         {
@@ -64,26 +57,32 @@ namespace CardScanner.UI
 
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            //Initialize a buffer to hold the received data 
-            byte[] buffer = new byte[Port.ReadBufferSize];
+            SerialPort port = (SerialPort)sender;
+            string input = port.ReadExisting();
 
-            //There is no accurate method for checking how many bytes are read 
-            //unless you check the return from the Read method 
-            int bytesRead = Port.Read(buffer, 0, buffer.Length);
+            string employeeIdentifier = string.Empty;
+            string temp = Utils.Left(input, 1);
 
-            //For the example assume the data we are received is ASCII data. 
-            tString += Encoding.ASCII.GetString(buffer, 0, bytesRead);
-            //Check if string contains the terminator  
-            if (tString.IndexOf((char)terminator) > -1)
+            if(input.Length > 38)
             {
-                //If tString does contain terminator we cannot assume that it is the last character received 
-                string workingString = tString.Substring(0, tString.IndexOf((char)terminator));
-                //Remove the data up to the terminator from tString 
-                tString = tString.Substring(tString.IndexOf((char)terminator));
-                //Do something with workingString 
-                Console.WriteLine(workingString);
+                if (temp != "<")
+                {
+                    employeeIdentifier = Utils.Right(Utils.Left(input, 38), 5);
+                }
+                else
+                {
+                    string tempRight = "H&" + Utils.Right(Utils.Left(input, 11), 6);
+                    int result = 0;
+                    int.TryParse(tempRight.Substring(2),
+                                NumberStyles.AllowHexSpecifier,
+                                null,
+                                out result);
+
+                    employeeIdentifier = (result / 2).ToString();
+                }
             }
-            else { Console.WriteLine(tString); }
+
+            Code.Text = employeeIdentifier;
         }
         #endregion
 
@@ -135,7 +134,7 @@ namespace CardScanner.UI
                 Code.Text = "1234 5678 910";
                 this.SetUserData();
                 UserData.Visibility = Visibility.Visible;
-            }            
+            }   
         }
 
         private void SetUserData()
